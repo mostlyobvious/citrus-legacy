@@ -14,4 +14,6 @@ Gem::Specification.new do |gem|
   gem.name          = "citrus"
   gem.require_paths = ["lib"]
   gem.version       = Citrus::VERSION
+
+  gem.add_development_dependency 'minitest'
 end
