@@ -16,4 +16,5 @@ Gem::Specification.new do |gem|
   gem.version       = Citrus::VERSION
 
   gem.add_development_dependency 'minitest'
+  gem.add_development_dependency 'rake'
 end
