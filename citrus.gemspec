@@ -15,6 +15,7 @@ Gem::Specification.new do |gem|
   gem.require_paths = ["lib"]
   gem.version       = Citrus::VERSION
 
+  gem.add_development_dependency 'datamapper'
   gem.add_development_dependency 'minitest'
   gem.add_development_dependency 'rake'
 end
