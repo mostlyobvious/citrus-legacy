@@ -2,6 +2,7 @@ gem 'minitest'
 require 'minitest/autorun'
 require 'data_mapper'
 require 'webmachine/test'
+require 'mocha'
 
 DataMapper.setup(:default, 'in_memory::')
 

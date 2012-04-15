@@ -16,6 +16,7 @@ class BuildTriggerResource < Webmachine::Resource
   def process_post
     metadata = Metadata.parse_from_hook(request.body)
     build    = @project.create_build(metadata)
+    build.run
     true
   end
 end

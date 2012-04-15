@@ -10,7 +10,7 @@ class BuildTriggerResourceTest < WebmachineTestCase
   end
 
   def test_should_process_hook_with_correct_token
-    token = prepare_project_with_trigger_token
+    token    = prepare_project_with_trigger_token
     response = post "/triggers/#{token}", body: valid_hook_data
     assert_equal 204, response.code
   end
@@ -18,5 +18,11 @@ class BuildTriggerResourceTest < WebmachineTestCase
   def test_should_not_process_hook_with_incorrect_token
     response = post "/triggers/non_existing_token", body: valid_hook_data
     assert_equal 404, response.code
+  end
+
+  def test_should_start_build_process
+    token = prepare_project_with_trigger_token
+    Build.any_instance.expects(:run)
+    post "/triggers/#{token}", body: valid_hook_data
   end
 end
