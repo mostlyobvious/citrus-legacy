@@ -1,16 +1,22 @@
 require 'test_helper'
 
 class BuildTriggerTest < UnitTestCase
+  def setup
+    @trigger = BuildTrigger.new
+  end
+
   def test_should_return_token
-    trigger = BuildTrigger.new
-    returned = trigger.generate_token!
-    assert_equal trigger.token, returned
+    returned = @trigger.generate_token!
+    assert_equal @trigger.token, returned
   end
 
   def test_should_regenerate_token
-    trigger = BuildTrigger.new
-    old_token = trigger.token
-    trigger.generate_token!
-    refute_equal trigger.token, old_token
+    old_token = @trigger.token
+    @trigger.generate_token!
+    refute_equal @trigger.token, old_token
+  end
+
+  def test_should_have_token_after_create
+    assert @trigger.token
   end
 end

@@ -7,6 +7,11 @@ class BuildTrigger
 
   belongs_to :project
 
+  def initialize(*args)
+    super
+    generate_token!
+  end
+
   def generate_token!
     t = SecureRandom.hex
     @token = t
