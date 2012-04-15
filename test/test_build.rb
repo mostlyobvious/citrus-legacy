@@ -1,11 +1,10 @@
 require 'test_helper'
 
-class BuildTest < MiniTest::Unit::TestCase
+class BuildTest < UnitTestCase
   def setup
-    config   = Configuration.new
     metadata = Metadata.new
     project  = Project.new('some project')
-    @build   = project.create_build(config, metadata)
+    @build   = project.create_build(metadata)
   end
 
   def test_should_be_runnable

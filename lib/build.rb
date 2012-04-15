@@ -1,13 +1,17 @@
 class Build
-  attr_reader :configuration, :metadata, :result
+  include DataMapper::Resource
 
-  def initialize(configuration, metadata)
-    @configuration = configuration
-    @metadata = metadata
+  belongs_to :project
+  has 1, :metadata
+  has 1, :result
+  has 1, :configuration
+
+  def initialize(metadata)
+    super()
+    self.metadata = metadata
   end
 
   def run
-    @result = Result.new
-    @result
+    self.result = Result.new
   end
 end

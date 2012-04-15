@@ -1,11 +1,11 @@
 require 'securerandom'
 
-class RemoteTrigger
-  attr_reader :token
+class BuildTrigger
+  include DataMapper::Resource
 
-  def initialize
-    generate_token!
-  end
+  property :token, String
+
+  belongs_to :project
 
   def generate_token!
     t = SecureRandom.hex

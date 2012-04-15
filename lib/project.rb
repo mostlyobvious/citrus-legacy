@@ -1,15 +1,19 @@
 class Project
-  attr_reader :configuration, :name, :builds, :build_triggers
+  include DataMapper::Resource
+
+  property :name, String, required: true
+
+  has n, :builds
+  has n, :build_triggers
 
   def initialize(name)
-    @name = name
-    @builds = []
-    @build_triggers = []
+    super()
+    self.name = name
   end
 
-  def create_build(configuration, metadata)
-    b = Build.new(configuration, metadata)
-    @builds << b
+  def create_build(metadata)
+    b = Build.new(metadata)
+    builds << b
     b
   end
 end
