@@ -26,4 +26,8 @@ class BuildTest < UnitTestCase
       assert File.directory?(@build.dirname)
     end
   end
+
+  def test_should_partition_build_directory_to_avoid_long_fs_seeks
+    assert_match /\d{4}\/\d{2}\/\d{2}.{8}/, @build.dirname.to_s
+  end
 end

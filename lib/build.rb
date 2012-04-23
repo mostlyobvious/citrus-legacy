@@ -1,3 +1,5 @@
+require 'securerandom'
+
 class Build
   include DataMapper::Resource
   extend  Forwardable
@@ -10,24 +12,32 @@ class Build
   has 1, :result
   has 1, :configuration
 
-  property :number, Integer
+  property :build_id, String
 
   def initialize(metadata)
     super()
     self.metadata = metadata
+    self.build_id = SecureRandom.hex(4)
   end
 
   def run
     prepare_workspace
-    self.result = Result.new
+    save_result
   end
 
   def dirname
-    Citrus.build_root.join(project_name, Time.now.strftime('%Y%m%d%') + number.to_s)
+    Citrus.build_root.join(project_name, Time.now.strftime('%Y/%m/%d'), build_id)
   end
 
   protected
   def prepare_workspace
     FileUtils.mkdir_p dirname
+  end
+
+  def save_result
+    r = Result.new
+    self.result = r
+    save
+    r
   end
 end
