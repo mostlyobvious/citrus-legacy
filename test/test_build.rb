@@ -19,4 +19,11 @@ class BuildTest < UnitTestCase
     result = @build.run
     assert_equal result, @build.result
   end
+
+  def test_should_create_build_directory_on_run
+    FakeFS do
+      @build.run
+      assert File.directory?(@build.dirname)
+    end
+  end
 end

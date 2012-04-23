@@ -3,6 +3,7 @@ require 'minitest/autorun'
 require 'data_mapper'
 require 'webmachine/test'
 require 'mocha'
+require 'fakefs/safe'
 
 DataMapper.setup(:default, 'in_memory::')
 
@@ -12,7 +13,7 @@ end
 
 module Fixtures
   def valid_hook_data
-    body = <<-END
+    <<-END
       {
         "after": "560e1628dbb2012ae9a46f80b39a8580e21eb386",
         "before": "560e1628dbb2012ae9a46f80b39a8580e21eb386",
