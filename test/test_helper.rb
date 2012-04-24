@@ -3,7 +3,6 @@ require 'minitest/autorun'
 require 'data_mapper'
 require 'webmachine/test'
 require 'mocha'
-require 'fakefs/safe'
 
 DataMapper.setup(:default, 'in_memory::')
 
@@ -11,7 +10,35 @@ Dir[File.expand_path(File.join(__FILE__, '../../lib/*.rb'))].each do |m|
   require m
 end
 
+module RepositoryHelper
+  def repository?(path)
+    File.directory?(File.join(path.to_s, '.git'))
+  end
+end
+
 module Fixtures
+  def valid_project
+    p = Project.new('sample project')
+    p.source_repository = valid_repository_url
+    p
+  end
+
+  def valid_result
+    Result.new
+  end
+
+  def valid_trigger
+    BuildTrigger.new
+  end
+
+  def valid_metadata
+    Metadata.new
+  end
+
+  def valid_repository_url
+    "file://#{File.expand_path(File.join(__FILE__, '../repository'))}"
+  end
+
   def valid_hook_data
     <<-END
       {
@@ -56,6 +83,15 @@ module Fixtures
         }
       }
     END
+  end
+end
+
+module FileSystem
+  def on_filesystem(&block)
+    Dir.mktmpdir do |path|
+      Citrus.build_root = Pathname.new(path)
+      block.call
+    end
   end
 end
 

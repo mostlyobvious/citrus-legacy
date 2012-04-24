@@ -2,6 +2,7 @@ class Project
   include DataMapper::Resource
 
   property :name, String, required: true
+  property :source_repository, String, required: true
 
   has n, :builds
   has n, :build_triggers

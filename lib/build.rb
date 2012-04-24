@@ -22,6 +22,7 @@ class Build
 
   def run
     prepare_workspace
+    checkout_source
     save_result
   end
 
@@ -32,6 +33,12 @@ class Build
   protected
   def prepare_workspace
     FileUtils.mkdir_p dirname
+  end
+
+  def checkout_source
+    r = Repository.new(project.source_repository)
+    r.clone(dirname)
+    r
   end
 
   def save_result

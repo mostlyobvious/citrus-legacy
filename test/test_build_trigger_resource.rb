@@ -1,17 +1,16 @@
 require 'test_helper'
 
 class BuildTriggerResourceTest < WebmachineTestCase
-  def prepare_project_with_trigger_token
-    project = Project.new 'build with token'
-    trigger = BuildTrigger.new
-    project.build_triggers << trigger
-    project.save
-    trigger.token
+  def setup
+    @trigger = valid_trigger
+    @project = valid_project
+    @project.build_triggers << @trigger
+    @project.save
   end
 
   def test_should_process_hook_with_correct_token
-    token    = prepare_project_with_trigger_token
-    response = post "/triggers/#{token}", body: valid_hook_data
+    Build.any_instance.expects(:run).returns(valid_result)
+    response = post "/triggers/#{@trigger.token}", body: valid_hook_data
     assert_equal 204, response.code
   end
 
@@ -21,8 +20,7 @@ class BuildTriggerResourceTest < WebmachineTestCase
   end
 
   def test_should_start_build_process
-    token = prepare_project_with_trigger_token
-    Build.any_instance.expects(:run)
-    post "/triggers/#{token}", body: valid_hook_data
+    Build.any_instance.expects(:run).returns(valid_result)
+    post "/triggers/#{@trigger.token}", body: valid_hook_data
   end
 end
