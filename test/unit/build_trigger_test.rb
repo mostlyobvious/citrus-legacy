@@ -2,7 +2,7 @@ require 'test_helper'
 
 class BuildTriggerTest < UnitTestCase
   def setup
-    @trigger = BuildTrigger.new
+    @trigger = valid_trigger
   end
 
   def test_should_return_token

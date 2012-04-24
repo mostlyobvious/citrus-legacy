@@ -1,4 +1,5 @@
-require "citrus/version"
+require 'securerandom'
+require 'json'
 
 module Citrus
   class << self

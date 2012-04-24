@@ -2,11 +2,11 @@ require 'test_helper'
 
 class MetadataTest < UnitTestCase
   def setup
-    @metadata = Metadata.parse_from_hook(valid_hook_data)
+    @metadata = Citrus::Metadata.parse_from_hook(valid_hook_data)
   end
 
   def test_parsing_from_hook_produces_metadata
-    assert_kind_of Metadata, @metadata
+    assert_kind_of Citrus::Metadata, @metadata
   end
 
   def test_should_parse_revision

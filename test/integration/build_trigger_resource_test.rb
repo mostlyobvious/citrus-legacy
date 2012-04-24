@@ -1,15 +1,16 @@
 require 'test_helper'
+require 'citrus/build'
 
-class BuildTriggerResourceTest < WebmachineTestCase
+class BuildTriggerResourceTest < IntegrationTestCase
   def setup
     @trigger = valid_trigger
     @project = valid_project
     @project.build_triggers << @trigger
-    @project.save
+    @project.save!
   end
 
   def test_should_process_hook_with_correct_token
-    Build.any_instance.expects(:run).returns(valid_result)
+    Citrus::Build.any_instance.expects(:run).returns(valid_result)
     response = post "/triggers/#{@trigger.token}", body: valid_hook_data
     assert_equal 204, response.code
   end
@@ -20,7 +21,7 @@ class BuildTriggerResourceTest < WebmachineTestCase
   end
 
   def test_should_start_build_process
-    Build.any_instance.expects(:run).returns(valid_result)
+    Citrus::Build.any_instance.expects(:run).returns(valid_result)
     post "/triggers/#{@trigger.token}", body: valid_hook_data
   end
 end

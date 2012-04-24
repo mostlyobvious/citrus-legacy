@@ -1,9 +1,9 @@
 require 'test_helper'
+require 'citrus/build'
+require 'citrus/result'
+require 'citrus/repository'
 
 class BuildTest < UnitTestCase
-  include FileSystem
-  include RepositoryHelper
-
   def setup
     @metadata = valid_metadata
     @project  = valid_project
@@ -15,21 +15,21 @@ class BuildTest < UnitTestCase
   end
 
   def test_should_return_result_after_run
-    Repository.any_instance.expects(:clone).returns(nil)
-    assert_kind_of Result, @build.run
+    Citrus::Repository.any_instance.expects(:clone).returns(nil)
+    assert_kind_of Citrus::Result, @build.run
   end
 
   def test_should_have_result_after_run
-    Repository.any_instance.expects(:clone).returns(nil)
+    Citrus::Repository.any_instance.expects(:clone).returns(nil)
     result = @build.run
     assert_equal result, @build.result
   end
 
   def test_should_create_build_directory_on_run
-    Repository.any_instance.expects(:clone).returns(nil)
-    on_filesystem do
+    Citrus::Repository.any_instance.expects(:clone).returns(nil)
+    with_citrus_root do
       @build.run
-      assert File.directory?(@build.dirname)
+      assert_directory @build.dirname
     end
   end
 
@@ -38,9 +38,9 @@ class BuildTest < UnitTestCase
   end
 
   def test_should_clone_repository_on_run
-    on_filesystem do
+    with_citrus_root do
       @build.run
-      assert repository?(@build.dirname)
+      assert_git_repository @build.dirname
     end
   end
 end
