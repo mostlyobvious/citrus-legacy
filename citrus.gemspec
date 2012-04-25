@@ -18,6 +18,7 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'webmachine'
   gem.add_dependency 'datamapper'
   gem.add_dependency 'cocaine'
+  gem.add_dependency 'posix-spawn'
 
   # XXX: gem.add_development_dependency 'webmachine-test'
   gem.add_development_dependency 'minitest'

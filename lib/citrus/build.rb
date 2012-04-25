@@ -37,16 +37,15 @@ module Citrus
     end
 
     def checkout_source
-      r = Repository.new(project.source_repository)
-      r.clone(dirname)
-      r
+      repo = Repository.new(project.source_repository)
+      repo.checkout(dirname)
     end
 
     def save_result
-      r = Result.new
-      self.result = r
+      result = Result.new
+      self.result = result
       save
-      r
+      result
     end
   end
 end
