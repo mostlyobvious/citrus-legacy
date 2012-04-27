@@ -1,3 +1,4 @@
+require 'support/database'
 require 'citrus/result'
 require 'citrus/project'
 require 'citrus/metadata'
