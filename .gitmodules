@@ -1,0 +1,3 @@
+[submodule "test/support/repository"]
+	path = test/support/repository
+	url = git://github.com/pawelpacana/citrus-sample-repository
