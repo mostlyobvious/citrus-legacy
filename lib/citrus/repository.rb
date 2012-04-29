@@ -1,37 +1,35 @@
 require 'citrus'
-require 'cocaine'
+require 'citrus/git'
+require 'citrus/utils'
 
 module Citrus
   class Repository
-    def initialize(remote_url)
-      @source = remote_url
+    include Utils
+
+    def initialize(repository_url)
+      @source = repository_url
     end
 
-    def checkout(destination_path, revision = nil)
-      clone_repository(@source, destination_path)
-      checkout_revision(destination_path, revision) if revision
+    def checkout(destination, revision = nil)
+      update_cache
+      Git.clone(cache_dir, destination)
+      Git.checkout(destination, revision)
+    end
+
+    def cache_dir
+      Citrus.cache_root.join(name_from_url(@source))
     end
 
     protected
-    def clone_repository(remote_url, destination_path)
-      cmd = Cocaine::CommandLine.new('git', 'clone :remote :destination',
-        remote: remote_url,
-        destination: destination_path.to_s,
-        swallow_stderr: true
-      )
-      cmd.run
-    end
-
-    def checkout_revision(local_path, revision)
-      cmd = Cocaine::CommandLine.new(in_path(local_path, 'git'), 'checkout -b build :revision',
-        revision: revision,
-        swallow_stderr: true
-      )
-      cmd.run
-    end
-
-    def in_path(path, cmd)
-      "cd '#{path.to_s}' && #{cmd}"
+    def update_cache
+      unless cache_dir.exist?
+        FileUtils.mkdir_p(cache_dir)
+        Git.clone(@source, cache_dir)
+      else
+        raise
+        Git.fetch_remote(cache_dir)
+        Git.reset(cache_dir)
+      end
     end
   end
 end

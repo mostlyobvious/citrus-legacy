@@ -9,6 +9,10 @@ module Citrus
       @build_root || root.join('builds')
     end
 
+    def cache_root
+      @cache_root || root.join('cache')
+    end
+
     def root
       Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), '..')))
     end
