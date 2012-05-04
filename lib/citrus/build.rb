@@ -1,4 +1,6 @@
 require 'citrus'
+require 'citrus/repository'
+require 'citrus/configuration'
 
 module Citrus
   class Build
@@ -11,7 +13,6 @@ module Citrus
 
     has 1, :metadata
     has 1, :result
-    has 1, :configuration
 
     property :build_id, String
 
@@ -24,6 +25,10 @@ module Citrus
     def run
       prepare_workspace
       checkout_source
+      config = load_configuration
+      case config.build_script
+      when String
+      end
       save_result
     end
 
@@ -39,6 +44,11 @@ module Citrus
     def checkout_source
       repo = Repository.new(project.source_repository)
       repo.checkout(dirname)
+    end
+
+    def load_configuration
+      config_path = File.join(dirname, '.citrus/config.rb')
+      Configuration.load_from_file(config_path)
     end
 
     def save_result

@@ -16,17 +16,20 @@ class BuildTest < UnitTestCase
 
   def test_should_return_result_after_run
     Citrus::Repository.any_instance.expects(:checkout).returns(nil)
+    Citrus::Configuration.expects(:load_from_file).returns(valid_configuration)
     assert_kind_of Citrus::Result, @build.run
   end
 
   def test_should_have_result_after_run
     Citrus::Repository.any_instance.expects(:checkout).returns(nil)
+    Citrus::Configuration.expects(:load_from_file).returns(valid_configuration)
     result = @build.run
     assert_equal result, @build.result
   end
 
   def test_should_create_build_directory_on_run
     Citrus::Repository.any_instance.expects(:checkout).returns(nil)
+    Citrus::Configuration.expects(:load_from_file).returns(valid_configuration)
     with_citrus_root do
       @build.run
       assert_directory @build.dirname

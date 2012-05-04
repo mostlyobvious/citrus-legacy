@@ -3,8 +3,13 @@ require 'citrus/result'
 require 'citrus/project'
 require 'citrus/metadata'
 require 'citrus/build_trigger'
+require 'citrus/configuration'
 
 module Fixtures
+  def valid_config
+    Proc.new { |c| c.build("bundle exec rake test") }
+  end
+
   def valid_project
     project = Citrus::Project.new('sample project')
     project.source_repository = valid_repository_url
@@ -23,8 +28,22 @@ module Fixtures
     Citrus::Metadata.new
   end
 
+  def valid_configuration_url
+    File.join(valid_repository_path, '.citrus/config.rb')
+  end
+
+  def valid_configuration
+    c = Citrus::Configuration.new
+    c.build "rake rest"
+    c
+  end
+
+  def valid_repository_path
+    File.expand_path(File.join(__FILE__, '../repository'))
+  end
+
   def valid_repository_url
-    "file://#{File.expand_path(File.join(__FILE__, '../repository'))}"
+    "file://#{valid_repository_path}"
   end
 
   def valid_hook_data
