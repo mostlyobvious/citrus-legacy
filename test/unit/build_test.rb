@@ -41,6 +41,7 @@ class BuildTest < UnitTestCase
   end
 
   def test_should_clone_repository_on_run
+    Citrus::Configuration.expects(:load_from_file).returns(valid_configuration)
     with_citrus_root do
       @build.run
       assert_git_repository @build.dirname

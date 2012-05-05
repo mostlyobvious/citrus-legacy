@@ -26,9 +26,7 @@ module Citrus
       prepare_workspace
       checkout_source
       config = load_configuration
-      case config.build_script
-      when String
-      end
+      config.build_script.run
       save_result
     end
 

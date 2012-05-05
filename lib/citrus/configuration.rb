@@ -1,4 +1,5 @@
 require 'citrus'
+require 'citrus/build_script'
 
 module Citrus
   class Configuration
@@ -17,7 +18,7 @@ module Citrus
     attr_reader :build_script
 
     def build(recipe)
-      @build_script = recipe
+      @build_script = BuildScript.new(recipe)
     end
 
     def valid?

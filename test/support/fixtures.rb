@@ -6,10 +6,6 @@ require 'citrus/build_trigger'
 require 'citrus/configuration'
 
 module Fixtures
-  def valid_config
-    Proc.new { |c| c.build("bundle exec rake test") }
-  end
-
   def valid_project
     project = Citrus::Project.new('sample project')
     project.source_repository = valid_repository_url
@@ -34,7 +30,7 @@ module Fixtures
 
   def valid_configuration
     c = Citrus::Configuration.new
-    c.build "rake rest"
+    c.build('echo -n 123')
     c
   end
 
