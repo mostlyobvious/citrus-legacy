@@ -7,9 +7,14 @@ class BuildScriptTest < UnitTestCase
     assert_respond_to script, :run
   end
 
+  def test_should_return_result
+    script = Citrus::BuildScript.new("echo -n 123")
+    assert_kind_of Citrus::Result, script.run
+  end
+
   def test_should_execute_string_in_command_line
     script = Citrus::BuildScript.new("echo -n 123")
-    output = script.run
-    assert_equal "123", output
+    result = script.run
+    assert_equal "123", result.output
   end
 end

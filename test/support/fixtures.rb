@@ -13,7 +13,7 @@ module Fixtures
   end
 
   def valid_result
-    Citrus::Result.new
+    Citrus::Result.new(:success, '123')
   end
 
   def valid_trigger

@@ -26,8 +26,10 @@ module Citrus
       prepare_workspace
       checkout_source
       config = load_configuration
-      config.build_script.run
-      save_result
+      result = config.build_script.run
+      self.result = result
+      save
+      result
     end
 
     def dirname
@@ -47,13 +49,6 @@ module Citrus
     def load_configuration
       config_path = File.join(dirname, '.citrus/config.rb')
       Configuration.load_from_file(config_path)
-    end
-
-    def save_result
-      result = Result.new
-      self.result = result
-      save
-      result
     end
   end
 end
