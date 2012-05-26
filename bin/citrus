@@ -1,0 +1,4 @@
+#!/usr/bin/env ruby
+
+require 'citrus/application'
+Citrus::Application.new.run
