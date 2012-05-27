@@ -16,6 +16,7 @@ Gem::Specification.new do |gem|
   gem.version       = Citrus::VERSION
 
   gem.add_dependency 'webmachine'
+  gem.add_dependency 'celluloid-zmq'
   gem.add_dependency 'datamapper'
   gem.add_dependency 'cocaine'
   gem.add_dependency 'posix-spawn'

@@ -1,5 +1,9 @@
 require 'securerandom'
 require 'json'
+require 'celluloid/zmq'
+require 'celluloid_zmq_extensions'
+
+Celluloid::ZMQ.init
 
 module Citrus
   class << self
@@ -15,6 +19,14 @@ module Citrus
 
     def root
       Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), '..')))
+    end
+
+    def notification_address
+      'tcp://127.0.0.1:1234'
+    end
+
+    def notification_channel
+      'citrus'
     end
   end
 end
