@@ -1,9 +1,8 @@
 require 'securerandom'
 require 'json'
+require 'webmachine'
 require 'celluloid/zmq'
 require 'celluloid_zmq_extensions'
-
-Celluloid::ZMQ.init
 
 module Citrus
   class << self

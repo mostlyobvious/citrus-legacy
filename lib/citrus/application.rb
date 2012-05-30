@@ -1,5 +1,6 @@
 require 'citrus'
 require 'citrus/build_trigger_resource'
+require 'webmachine/adapters/reel'
 
 module Citrus
   class Application
@@ -9,6 +10,10 @@ module Citrus
       self.webmachine = Webmachine::Application.new do |app|
         app.routes do
           add ['triggers', :token], BuildTriggerResource
+        end
+
+        app.configure do |c|
+          c.adapter = :Reel
         end
       end
     end
