@@ -1,4 +1,5 @@
 require 'citrus'
+require 'citrus/database'
 require 'citrus/build_trigger_resource'
 require 'webmachine/adapters/reel'
 
