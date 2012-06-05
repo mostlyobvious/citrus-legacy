@@ -12,10 +12,15 @@ Rake::TestTask.new('test:integration') do |t|
   t.libs    = %w(test lib)
 end
 
+Rake::TestTask.new('test:acceptance') do |t|
+  t.pattern = 'test/acceptance/*_test.rb'
+  t.libs    = %w(test lib)
+end
+
 task :prepare do
   `git submodule init`
   `git submodule update`
 end
 
-task test: %w(test:unit test:integration)
+task test: %w(test:unit test:integration test:acceptance)
 task default: :test
