@@ -7,10 +7,8 @@ class ProcessSpawner
   end
 
   def spawn
-    r, w = IO.pipe
-    pid  = Process.spawn(@env, @path, [:err, :out] => w)
-    w.close
-    wait_for_readyness(r)
+    pid  = Process.spawn(@env, @path)
+    wait_for_readyness
     pid
   end
 
@@ -20,8 +18,13 @@ class ProcessSpawner
     Process.wait(pid)
   end
 
-  def wait_for_readyness(fd)
-    raise ProcessSpawnerError if fd.read.empty?
+  def wait_for_readyness
+    trap('HUP') { break }
+    begin
+      Timeout.timeout(5) { loop { sleep } }
+    rescue Timeout::Error
+      raise ProcessSpawnerError
+    end
   end
 end
 

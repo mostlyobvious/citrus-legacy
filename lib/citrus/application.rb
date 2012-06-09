@@ -1,7 +1,7 @@
 require 'citrus'
 require 'citrus/database'
 require 'citrus/build_trigger_resource'
-require 'webmachine/adapters/reel'
+require 'citrus/adapter'
 
 module Citrus
   class Application
@@ -14,7 +14,7 @@ module Citrus
         end
 
         app.configure do |c|
-          c.adapter = :Reel
+          c.adapter = :ReelWithParentProcess
         end
       end
     end
