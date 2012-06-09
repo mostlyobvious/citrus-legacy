@@ -1,6 +1,7 @@
 require 'citrus'
 require 'citrus/database'
 require 'citrus/build_trigger_resource'
+require 'citrus/notifications_resource'
 require 'citrus/adapter'
 
 module Citrus
@@ -11,6 +12,7 @@ module Citrus
       self.webmachine = Webmachine::Application.new do |app|
         app.routes do
           add ['triggers', :token], BuildTriggerResource
+          add ['notifications'], NotificationsResource
         end
 
         app.configure do |c|
