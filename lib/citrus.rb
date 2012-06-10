@@ -27,5 +27,13 @@ module Citrus
     def notification_channel
       'citrus'
     end
+
+    def environment
+      ENV['CITRUS_ENV'] ||= 'development'
+    end
+
+    def test?
+      environment == 'test'
+    end
   end
 end

@@ -16,7 +16,7 @@ module Citrus
         end
 
         app.configure do |c|
-          c.adapter = :ReelWithParentProcess
+          c.adapter = :Reel
         end
       end
     end

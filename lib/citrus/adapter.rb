@@ -2,16 +2,17 @@ require 'webmachine/adapters/reel'
 
 module Webmachine
   module Adapters
-    class ReelWithParentProcess < Reel
-      # XXX: a terrible, terrible hack I should explain:
-      #      reel adapter after spawning server loop goes
-      #      into sleep in main thread; it's perfect place
-      #      to send readiness signal here and continue
-      #      though I would not like to rewrite whole
-      #      adapter to include just one line
-      def sleep
-        Process.kill('HUP', Process.ppid) if Process.ppid
-        super
+    class Reel
+      def run
+        options = {
+          :port => configuration.port,
+          :host => configuration.ip
+        }.merge(configuration.adapter_options)
+        server = ::Reel::Server.supervise(options[:host], options[:port], &method(:process))
+        trap("INT"){ server.terminate; exit 0 }
+
+        Process.kill('HUP', Process.ppid) if Citrus.test?
+        sleep
       end
     end
   end

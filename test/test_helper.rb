@@ -1,3 +1,5 @@
+ENV['CITRUS_ENV'] = 'test'
+
 gem 'minitest'
 require 'minitest/autorun'
 require 'mocha'
