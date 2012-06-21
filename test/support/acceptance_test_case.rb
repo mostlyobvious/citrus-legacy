@@ -4,7 +4,7 @@ class AcceptanceTestCase < MiniTest::Unit::TestCase
   def run(runner, &block)
     output = "F"
     begin
-      spawner = ProcessSpawner.new("bundle exec ruby %s" % Citrus.root.join('bin', 'citrus'))
+      spawner = ProcessSpawner.new("bundle exec ruby %s" % Citrus.root.join('bin', 'citrusd'))
       pid = spawner.spawn
       super
     rescue => exc
