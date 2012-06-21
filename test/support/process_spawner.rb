@@ -1,13 +1,22 @@
 class ProcessSpawnerError < StandardError; end
 
 class ProcessSpawner
-  def initialize(path, env = {})
-    @path = path
-    @env  = env
+  def initialize(path_or_proc, env = {})
+    case path_or_proc
+    when Proc
+      @proc = path_or_proc
+    else
+      @path = path_or_proc
+      @env  = env
+    end
   end
 
   def spawn
-    pid  = Process.spawn(@env, @path)
+    pid = if @proc
+      fork { @proc.call }
+    else
+      Process.spawn(@env, @path)
+    end
     wait_for_readyness
     pid
   end
