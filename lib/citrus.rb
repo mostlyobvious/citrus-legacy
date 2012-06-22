@@ -3,6 +3,10 @@ require 'json'
 require 'webmachine'
 require 'celluloid/zmq'
 require 'celluloid_zmq_extensions'
+require 'thor'
+require 'httpclient'
+
+Celluloid.logger = nil
 
 module Citrus
   class << self
