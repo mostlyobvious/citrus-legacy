@@ -1,6 +1,12 @@
 require 'support/process_spawner'
+require 'support/actors'
 
 class AcceptanceTestCase < MiniTest::Unit::TestCase
+  def setup
+    @user   = TestUser.new
+    @github = TestGithub.new
+  end
+
   def run(runner, &block)
     output = "F"
     begin
