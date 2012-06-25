@@ -2,7 +2,7 @@ require 'citrus'
 require 'citrus/database'
 require 'citrus/build_trigger_resource'
 require 'citrus/notifications_resource'
-require 'citrus/adapter'
+require 'webmachine/adapters/mongrel2'
 
 module Citrus
   class Application
@@ -16,7 +16,12 @@ module Citrus
         end
 
         app.configure do |c|
-          c.adapter = :Reel
+          c.adapter = :Mongrel2
+          c.adapter_options = {
+            sender_uuid: 'dfe7ff77-5c4c-4a0f-a895-0ed0cd77b77b',
+            recv_addr: 'tcp://127.0.0.1:1234',
+            send_addr: 'tcp://127.0.0.1:4321'
+          }
         end
       end
     end

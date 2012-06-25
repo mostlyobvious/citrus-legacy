@@ -8,32 +8,42 @@ class ProcessSpawner
     else
       @path = path_or_proc
       @env  = env
+      @opts = { err: '/dev/null' }
     end
   end
 
-  def spawn
-    pid = if @proc
+  def spawn(pidfile = nil)
+    if @proc
       fork { @proc.call }
     else
-      Process.spawn(@env, @path)
+      Process.spawn(@env, @path, @opts)
     end
-    wait_for_readyness
-    pid
+    read_pid_from_file(pidfile) if pidfile
   end
 
-  def kill(pid)
-    return unless pid
-    Process.kill("KILL", pid)
-    Process.wait(pid)
+  def self.kill(*pids)
+    pids.each do |pid|
+      next unless pid
+      Process.kill("TERM", pid)
+    end
   end
 
-  def wait_for_readyness
-    trap('HUP') { break }
-    begin
-      Timeout.timeout(5) { loop { sleep } }
-    rescue Timeout::Error
-      raise ProcessSpawnerError
+  def read_pid_from_file(pidfile)
+    pid = nil
+    Timeout.timeout(1) do
+      loop do
+        begin
+          pid = File.read(pidfile)
+          break unless pid.empty?
+        rescue Errno::ENOENT
+          sleep(0.1)
+          next
+        end
+      end
+      pid.to_i
     end
+  rescue Timeout::Error
+    raise ProcessSpawnerError
   end
 end
 
