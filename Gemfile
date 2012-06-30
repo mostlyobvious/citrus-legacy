@@ -9,9 +9,10 @@ gem 'bbq',           git: 'git://github.com/drugpl/bbq.git'
 group :test do
   gem 'webmachine-test', git: 'git://github.com/bernd/webmachine-test.git'
   gem 'guard-minitest'
-
-  if RUBY_PLATFORM =~ /darwin/
-    gem 'growl'
-    gem 'rb-fsevent'
-  end
 end
+
+group :darwin do
+  gem 'growl'
+  gem 'rb-fsevent'
+end
+
