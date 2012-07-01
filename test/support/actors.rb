@@ -5,7 +5,7 @@ class TestUser < Bbq::TestUser
   include MiniTest::Assertions
 
   def add_project_from_cmdline(name, repo)
-    Citrus::CLI.new.add(name)
+    Citrus::CLI.new(['add', name, '-r', repo]).run
   end
 
   def visit_projects

@@ -1,4 +1,4 @@
 #!/usr/bin/env ruby
 
 require 'citrus/cli'
-Citrus::CLI.start
+Citrus::CLI.new(ARGV).run

@@ -20,7 +20,6 @@ Gem::Specification.new do |gem|
   gem.add_dependency 'datamapper'
   gem.add_dependency 'cocaine'
   gem.add_dependency 'posix-spawn'
-  gem.add_dependency 'thor'
   gem.add_dependency 'httpclient'
 
   # XXX: gem.add_development_dependency 'webmachine-test'
