@@ -61,7 +61,7 @@ module Webmachine
             if headers['method'] != 'HEAD' or not [204, 304, *100..199].flatten.include?(response.code.to_i)
               response.headers['Content-Length'] = 0
             end
-            @connection.respond(req, ::Mongrel2::Response.new(response.code, response.headers, ""))
+            @connection.respond(req, ::Mongrel2::Response.new(response.code, response.headers))
           else
             if response.body.respond_to?(:call)
               @connection.respond(req, ::Mongrel2::Response.new(response.code, response.headers))
