@@ -1,6 +1,7 @@
 ENV['CITRUS_ENV'] = 'test'
 
 gem 'minitest'
+require 'webrick'
 require 'minitest/autorun'
 require 'mocha'
 
