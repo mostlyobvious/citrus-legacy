@@ -2,7 +2,7 @@ require 'citrus'
 require 'citrus/database'
 require 'citrus/build_trigger_resource'
 require 'citrus/notifications_resource'
-require 'webmachine/adapters/mongrel2'
+require 'webmachine_adapters_mongrel2'
 
 module Citrus
   class Application
