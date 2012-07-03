@@ -1,7 +1,9 @@
 require 'citrus'
 require 'citrus/database'
 require 'citrus/build_trigger_resource'
-require 'citrus/notifications_resource'
+require 'citrus/notification_resource'
+require 'citrus/project_resource'
+require 'citrus/project_list_resource'
 
 module Citrus
   class Application
@@ -11,7 +13,11 @@ module Citrus
       self.webmachine = Webmachine::Application.new do |app|
         app.routes do
           add ['triggers', :token], BuildTriggerResource
-          add ['notifications'], NotificationsResource
+          add ['projects'],
+            ->(request) { request.method == 'POST' }, ProjectResource
+          add ['projects'], ProjectListResource
+          add ['projects', :id], ProjectResource
+          add ['notifications'], NotificationResource
         end
       end
     end

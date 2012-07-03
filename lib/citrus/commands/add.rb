@@ -16,9 +16,15 @@ module Citrus
         argv = parse_options(opts)
         return puts opts unless argv.first and options[:repo]
 
-        client = HTTPClient.new
-        target = File.join(options[:host], 'projects')
-        client.post(target, name: argv.first, repository: options[:repo])
+        client  = HTTPClient.new
+        target  = File.join(options[:host], 'projects')
+        params  = {
+          name: argv.first,
+          repository: options[:repo]
+        }
+        headers = {'Content-Type' => 'application/json'}
+        client.post(target, params.to_json, headers)
+
       rescue OptionParser::MissingArgument
         puts opts
       end

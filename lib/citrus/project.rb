@@ -5,6 +5,7 @@ module Citrus
   class Project
     include DataMapper::Resource
 
+    property :id, Serial
     property :name, String, required: true
     property :source_repository, String, required: true
 
