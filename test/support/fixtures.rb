@@ -7,8 +7,7 @@ require 'citrus/configuration'
 
 module Fixtures
   def valid_project
-    project = Citrus::Project.new('sample project')
-    project.source_repository = valid_repository_url
+    project = Citrus::Project.new('sample project', valid_repository_url)
     project
   end
 
@@ -39,7 +38,7 @@ module Fixtures
   end
 
   def valid_repository_url
-    "file://#{valid_repository_path}"
+    "git://github.com/pawelpacana/citrus.git"
   end
 
   def valid_hook_data

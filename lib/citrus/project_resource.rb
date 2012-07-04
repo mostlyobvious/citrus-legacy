@@ -15,9 +15,8 @@ module Citrus
     end
 
     def accept_json
-      data    = JSON.parse(request.body.to_s)
-      project = Project.new(data['name'])
-      project.source_repository = data['repository']
+      params  = JSON.parse(request.body.to_s)
+      project = Project.new(params['name'], params['repository'])
       project.save
       response.headers['Location'] = "/projects/#{project.id}"
     end

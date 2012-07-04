@@ -12,9 +12,10 @@ module Citrus
     has n, :builds
     has n, :build_triggers
 
-    def initialize(name)
+    def initialize(name, repository)
       super()
       self.name = name
+      self.source_repository = repository
     end
 
     def create_build(metadata)
