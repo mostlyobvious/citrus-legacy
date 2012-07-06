@@ -2,6 +2,10 @@ require 'test_helper'
 require 'citrus/repository'
 
 class RepositoryTest < UnitTestCase
+  def valid_repository_url
+    "git://github.com/pawelpacana/citrus-sample-repository"
+  end
+
   def test_should_checkout_remote_repository
     with_citrus_root do |root|
       tmpdir = File.join(root, 'test_repo')
