@@ -36,7 +36,9 @@ module Citrus
     end
 
     def adjust_load_path
-      $: << Citrus.root.join('app')
+      %w(app lib/citrus/resources).each do |path|
+        $:.unshift Citrus.root.join(path).to_s
+      end
     end
   end
 end
