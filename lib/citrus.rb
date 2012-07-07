@@ -1,6 +1,6 @@
 module Citrus
   class << self
-    attr_writer :build_root
+    attr_writer :cache_root, :build_root
 
     def boot!
       require_stdlib
@@ -40,7 +40,6 @@ module Citrus
 
     def require_stdlib
       require 'pathname'
-      require 'ostruct'
     end
 
     def adjust_load_path
