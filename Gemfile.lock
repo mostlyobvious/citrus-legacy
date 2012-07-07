@@ -6,16 +6,6 @@ GIT
       webmachine
 
 GIT
-  remote: git://github.com/celluloid/celluloid-zmq.git
-  revision: 25decd35d2a24f43000d64ea7a7b38c5c0a9f159
-  specs:
-    celluloid-zmq (0.11.0)
-      celluloid (~> 0.11.0)
-      celluloid-io (~> 0.11.0)
-      ffi
-      ffi-rzmq
-
-GIT
   remote: git://github.com/drugpl/bbq.git
   revision: 7a41c5f5f139e992c319d81a3d3b40917a952923
   specs:
@@ -43,10 +33,6 @@ GEM
       json
     capybara-webkit-remote (0.0.4)
       capybara-webkit (>= 0.12.0)
-    celluloid (0.11.0)
-    celluloid-io (0.11.0)
-      celluloid (~> 0.11.0)
-      nio4r (>= 0.4.0)
     childprocess (0.3.3)
       ffi (~> 1.0.6)
     cocaine (0.2.1)
@@ -90,8 +76,6 @@ GEM
       dm-core (~> 1.2.0)
     fastercsv (1.5.5)
     ffi (1.0.11)
-    ffi-rzmq (0.9.3)
-      ffi
     foreman (0.47.0)
       thor (>= 0.13.6)
     growl (1.0.3)
@@ -116,7 +100,6 @@ GEM
     mocha (0.11.4)
       metaclass (~> 0.0.1)
     multi_json (1.0.4)
-    nio4r (0.4.0)
     nokogiri (1.5.5)
     posix-spawn (0.3.6)
     rack (1.4.1)
@@ -148,7 +131,6 @@ PLATFORMS
 DEPENDENCIES
   bbq!
   capybara-webkit-remote
-  celluloid-zmq!
   cocaine
   datamapper
   foreman

@@ -5,7 +5,6 @@ gem 'datamapper'
 gem 'cocaine'
 gem 'posix-spawn'
 gem 'httpclient'
-gem 'celluloid-zmq', git: 'git://github.com/celluloid/celluloid-zmq.git'
 
 group :test do
   gem 'bbq',             git: 'git://github.com/drugpl/bbq.git'

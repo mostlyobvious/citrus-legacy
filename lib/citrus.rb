@@ -20,14 +20,6 @@ module Citrus
       Pathname.new(File.expand_path(File.join(File.dirname(__FILE__), '..')))
     end
 
-    def notification_address
-      'tcp://127.0.0.1:1234'
-    end
-
-    def notification_channel
-      'citrus'
-    end
-
     def environment
       ENV['CITRUS_ENV'] ||= 'development'
     end
@@ -40,6 +32,7 @@ module Citrus
 
     def require_stdlib
       require 'pathname'
+      require 'securerandom'
     end
 
     def adjust_load_path

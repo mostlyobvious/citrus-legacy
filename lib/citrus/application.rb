@@ -1,7 +1,6 @@
 require 'citrus'
 require 'citrus/database'
 require 'citrus/build_trigger_resource'
-require 'citrus/notification_resource'
 require 'citrus/project_resource'
 require 'citrus/project_list_resource'
 
@@ -17,7 +16,6 @@ module Citrus
             ->(request) { request.method == 'POST' }, ProjectResource
           add ['projects'], ProjectListResource
           add ['projects', :id], ProjectResource
-          add ['notifications'], NotificationResource
         end
       end
     end
