@@ -1,5 +1,4 @@
 #!/usr/bin/env rake
-require 'bundler/gem_tasks'
 require 'rake/testtask'
 
 Rake::TestTask.new('test:unit') do |t|
@@ -15,11 +14,6 @@ end
 Rake::TestTask.new('test:acceptance') do |t|
   t.pattern = 'test/acceptance/*_test.rb'
   t.libs    = %w(test lib)
-end
-
-task :prepare do
-  `git submodule init`
-  `git submodule update`
 end
 
 task test: %w(test:unit test:integration test:acceptance)
