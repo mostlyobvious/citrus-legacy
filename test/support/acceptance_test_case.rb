@@ -10,7 +10,13 @@ class AcceptanceTestCase < MiniTest::Unit::TestCase
   def run(runner, &block)
     output = "F"
     begin
-      code    = Proc.new { Citrus::Application.new.run }
+      code = Proc.new do
+        app = Citrus::Application.new
+        app.webmachine.adapter.configuration.adapter_options = {
+          Logger: WEBrick::Log.new("/dev/null"), AccessLog: [nil, nil]
+        }
+        app.run
+      end
       backend = ProcessSpawner.new(code)
       pid     = backend.spawn
       super
