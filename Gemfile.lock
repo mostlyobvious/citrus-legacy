@@ -101,7 +101,6 @@ GEM
       metaclass (~> 0.0.1)
     multi_json (1.0.4)
     nokogiri (1.5.5)
-    posix-spawn (0.3.6)
     rack (1.4.1)
     rack-test (0.6.1)
       rack (>= 1.0)
@@ -139,7 +138,6 @@ DEPENDENCIES
   httpclient
   minitest
   mocha
-  posix-spawn
   rake
   rb-fsevent
   webmachine

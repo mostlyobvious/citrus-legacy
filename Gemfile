@@ -3,7 +3,6 @@ source 'https://rubygems.org'
 gem 'webmachine'
 gem 'datamapper'
 gem 'cocaine'
-gem 'posix-spawn'
 gem 'httpclient'
 
 group :test do
