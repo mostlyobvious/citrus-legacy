@@ -1,13 +1,13 @@
 source 'https://rubygems.org'
 
-gem 'webmachine'
+gem 'webmachine', '~> 1.0.0'
+gem 'virtus',     '~> 0.5.1'
 gem 'cocaine'
 gem 'httpclient'
-gem 'virtus', '~> 0.5.1'
 
 group :test do
-  gem 'bbq',             git: 'git://github.com/drugpl/bbq.git'
-  gem 'webmachine-test', git: 'git://github.com/bernd/webmachine-test.git'
+  gem 'bbq', git: 'git://github.com/drugpl/bbq.git'
+  gem 'webmachine-test', '~> 0.1.0'
   gem 'guard-minitest'
   gem 'minitest'
   gem 'mocha'
