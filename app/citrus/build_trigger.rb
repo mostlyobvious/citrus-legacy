@@ -1,15 +1,13 @@
-require 'citrus'
+require 'citrus/entity'
 
 module Citrus
-  class BuildTrigger
-    include DataMapper::Resource
+  class BuildTrigger < Entity
+    attr_accessor :project
+    attribute     :token, String
 
-    property :token, String
+    validates_presence_of :token, :project
 
-    belongs_to :project
-
-    def initialize(*args)
-      super
+    def initialize
       generate_token!
     end
 

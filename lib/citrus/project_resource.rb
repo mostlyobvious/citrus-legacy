@@ -1,7 +1,6 @@
 require 'citrus'
 require 'citrus/project'
 require 'citrus/resource'
-require 'stringex'
 
 module Citrus
   class ProjectResource < Resource

@@ -1,5 +1,4 @@
 require 'citrus'
-require 'citrus/database'
 require 'citrus/build_trigger_resource'
 require 'citrus/project_resource'
 require 'citrus/project_list_resource'

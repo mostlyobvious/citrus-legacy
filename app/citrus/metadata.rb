@@ -1,14 +1,12 @@
-require 'citrus'
+require 'citrus/entity'
 
 module Citrus
-  class Metadata
-    include DataMapper::Resource
+  class Metadata < Entity
+    attribute :revision, String
+    attribute :pusher_name, String
+    attribute :ref, String
 
-    property :revision, String
-    property :pusher_name, String
-    property :ref, String
-
-    belongs_to :build
+    validates_presence_of :revision, :pusher_name, :ref
 
     def self.parse_from_hook(data)
       hash = JSON.parse(data)

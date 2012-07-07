@@ -1,4 +1,4 @@
-module Assertions
+module RepositoryAssertions
   def assert_git_repository(path, msg = nil)
     msg = message(msg) {
       "Expected #{mu_pp(path)} to be git repository"
@@ -22,12 +22,5 @@ module Assertions
     }
     refs = `cd '#{path}' && git log --max-count=1 --pretty=format:%d`
     assert_match /#{branch}/, refs, msg
-  end
-
-  def assert_directory(path, msg = nil)
-    msg = message(msg) {
-      "Expected #{mu_pp(path)} to be directory"
-    }
-    assert File.directory?(path), msg
   end
 end

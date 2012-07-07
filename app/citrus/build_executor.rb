@@ -1,9 +1,8 @@
 require 'citrus'
 require 'citrus/result'
-require 'cocaine'
 
 module Citrus
-  class BuildScript
+  class BuildExecutor
     def initialize(recipe)
       @recipe = recipe
     end

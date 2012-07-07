@@ -2,8 +2,7 @@ require 'test_helper'
 
 class ProjectTest < UnitTestCase
   def setup
-    name, repo = 'awesome project', 'git://github.com/pawelpacana/citrus.git'
-    @project = Citrus::Project.new(name, repo)
+    @project = Citrus::Project.new('awesome project', valid_repository_url)
   end
 
   def test_should_be_valid
@@ -14,22 +13,20 @@ class ProjectTest < UnitTestCase
     assert_equal 'awesome project', @project.name
   end
 
-  def test_should_have_source_repository
-    assert_equal 'git://github.com/pawelpacana/citrus.git', @project.source_repository
+  def test_should_have_repository_url
+    assert_equal 'git://github.com/pawelpacana/citrus.git', @project.repository_url
   end
 
-  def test_should_create_builds
-    assert_kind_of Citrus::Build, @project.create_build(valid_metadata)
-  end
-
-  def test_should_have_builds
-    @project.create_build(valid_metadata)
+  def test_should_allow_adding_builds
+    @project.add_build(Citrus::Build.new(valid_metadata))
     assert_kind_of Citrus::Build, @project.builds.first
+    assert_equal @project, @project.builds.first.project
   end
 
-  def test_should_have_build_triggers
-    @project.build_triggers << Citrus::BuildTrigger.new
+  def test_should_allow_adding_build_triggers
+    @project.add_build_trigger(Citrus::BuildTrigger.new)
     assert_kind_of Citrus::BuildTrigger, @project.build_triggers.first
+    assert_equal @project, @project.build_triggers.first.project
   end
 
   def test_should_be_invalid_without_name
@@ -37,8 +34,8 @@ class ProjectTest < UnitTestCase
     refute @project.valid?
   end
 
-  def test_should_be_invalid_without_source_repository
-    @project.source_repository = nil
+  def test_should_be_invalid_without_repository_url
+    @project.repository_url = nil
     refute @project.valid?
   end
 end

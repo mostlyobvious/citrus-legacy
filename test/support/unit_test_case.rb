@@ -1,11 +1,7 @@
-require 'support/fixtures'
-require 'support/filesystem'
-require 'support/assertions'
+require 'support/fixture_helper'
 
 class UnitTestCase < MiniTest::Unit::TestCase
-  include Fixtures
-  include Filesystem
-  include Assertions
+  include FixtureHelper
 end
 
 

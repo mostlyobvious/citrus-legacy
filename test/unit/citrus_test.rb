@@ -1,6 +1,16 @@
 require 'test_helper'
 
 class CitrusTest < UnitTestCase
+  include FilesystemHelper
+
+  def setup
+    clear_paths_depending_on_root
+  end
+
+  def teardown
+    clear_paths_depending_on_root
+  end
+
   def test_should_have_default_build_root
     assert Citrus.build_root
   end

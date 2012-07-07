@@ -1,9 +1,9 @@
 source 'https://rubygems.org'
 
 gem 'webmachine'
-gem 'datamapper'
 gem 'cocaine'
 gem 'httpclient'
+gem 'virtus', '~> 0.5.1'
 
 group :test do
   gem 'bbq',             git: 'git://github.com/drugpl/bbq.git'

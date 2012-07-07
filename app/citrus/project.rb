@@ -1,27 +1,28 @@
-require 'citrus'
+require 'citrus/entity'
 require 'citrus/build'
+require 'citrus/build_trigger'
 
 module Citrus
-  class Project
-    include DataMapper::Resource
+  class Project < Entity
+    attribute :name,           String
+    attribute :repository_url, String
+    attribute :builds,         Array[Citrus::Build],        default: []
+    attribute :build_triggers, Array[Citrus::BuildTrigger], default: []
 
-    property :id, Serial
-    property :name, String, required: true
-    property :source_repository, String, required: true
+    validates_presence_of :name, :repository_url
 
-    has n, :builds
-    has n, :build_triggers
-
-    def initialize(name, repository)
-      super()
-      self.name = name
-      self.source_repository = repository
+    def initialize(name, repository_url)
+      self.name, self.repository_url = name, repository_url
     end
 
-    def create_build(metadata)
-      build = Build.new(metadata)
+    def add_build(build)
+      build.project = self
       self.builds << build
-      build
+    end
+
+    def add_build_trigger(build_trigger)
+      build_trigger.project = self
+      self.build_triggers << build_trigger
     end
   end
 end

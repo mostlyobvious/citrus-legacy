@@ -2,15 +2,17 @@ require 'test_helper'
 require 'citrus/repository'
 
 class RepositoryTest < UnitTestCase
-  def valid_repository_url
-    "git://github.com/pawelpacana/citrus-sample-repository"
+  include FilesystemHelper
+  include RepositoryAssertions
+
+  def setup
+    @repository = Citrus::Repository.new(valid_repository_path)
   end
 
   def test_should_checkout_remote_repository
     with_citrus_root do |root|
       tmpdir = File.join(root, 'test_repo')
-      repo = Citrus::Repository.new(valid_repository_url)
-      repo.checkout(tmpdir)
+      @repository.checkout(tmpdir)
       assert_git_repository tmpdir
     end
   end
@@ -18,9 +20,8 @@ class RepositoryTest < UnitTestCase
   def test_should_checkout_correct_revision
     with_citrus_root do |root|
       tmpdir = File.join(root, 'test_repo')
-      repo = Citrus::Repository.new(valid_repository_url)
       rev  = 'bb62bf8a1390c4cb0ac0c6a80f3450faf5e125e9'
-      repo.checkout(tmpdir, rev)
+      @repository.checkout(tmpdir, rev)
       assert_git_revision tmpdir, rev
     end
   end
@@ -28,10 +29,9 @@ class RepositoryTest < UnitTestCase
   def test_should_checkout_to_named_branch
     with_citrus_root do |root|
       tmpdir = File.join(root, 'test_repo')
-      repo = Citrus::Repository.new(valid_repository_url)
       branch = 'build'
       rev    = 'bb62bf8a1390c4cb0ac0c6a80f3450faf5e125e9'
-      repo.checkout(tmpdir, rev)
+      @repository.checkout(tmpdir, rev)
       assert_git_branch tmpdir, branch
     end
   end

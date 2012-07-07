@@ -1,18 +1,14 @@
-require 'citrus'
+require 'citrus/entity'
 
 module Citrus
-  class Result
-    include DataMapper::Resource
+  class Result < Entity
+    attribute :status, String
+    attribute :output, String
 
-    belongs_to :build
+    validates_presence_of :status
 
-    property :status, String
-    property :output, String
-
-    def initialize(status, output)
-      super()
-      self.status = status.to_s
-      self.output = output
+    def initialize(status, output = nil)
+      self.status, self.output = status, output
     end
   end
 end

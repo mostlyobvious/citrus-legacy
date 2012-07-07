@@ -1,13 +1,11 @@
-require 'support/fixtures'
-require 'support/filesystem'
-require 'support/database'
+require 'support/fixture_helper'
+require 'support/filesystem_helper'
 require 'webmachine/test'
 require 'citrus/application'
 
 class IntegrationTestCase < MiniTest::Unit::TestCase
-  include Fixtures
-  include Filesystem
-  include Database
+  include FixtureHelper
+  include FilesystemHelper
   include Webmachine::Test
 
   def app
