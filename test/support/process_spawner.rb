@@ -12,13 +12,13 @@ class ProcessSpawner
     end
   end
 
-  def spawn(pidfile = nil)
-    pid = if @proc
-            fork { @proc.call }
-          else
-            Process.spawn(@env, @path, @opts)
-          end
-    pidfile ? read_pid_from_file(pidfile) : pid
+  def spawn
+    @proc ? fork { @proc.call } : Process.spawn(@env, @path, @opts)
+  end
+
+  def spawn_and_wait_for_pidfile(path)
+    spawn
+    read_pid_from_file(path)
   end
 
   def self.kill(*pids)
@@ -28,6 +28,7 @@ class ProcessSpawner
     end
   end
 
+  protected
   def read_pid_from_file(pidfile)
     pid = nil
     Timeout.timeout(1) do
