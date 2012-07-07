@@ -1,14 +1,12 @@
-require 'bundler'
-Bundler.require(:default)
-
-require 'securerandom'
-require 'json'
-
-Celluloid.logger = nil
-
 module Citrus
   class << self
     attr_writer :build_root
+
+    def boot!
+      require_stdlib
+      require_bundler_default_group
+      adjust_load_path
+    end
 
     def build_root
       @build_root || root.join('builds')
@@ -34,8 +32,22 @@ module Citrus
       ENV['CITRUS_ENV'] ||= 'development'
     end
 
-    def test?
-      environment == 'test'
+    protected
+    def require_bundler_default_group
+      require 'bundler'
+      Bundler.require(:default)
+    end
+
+    def require_stdlib
+      require 'pathname'
+      require 'ostruct'
+    end
+
+    def adjust_load_path
+      $: << Citrus.root.join('app')
     end
   end
 end
+
+Citrus.boot!
+
