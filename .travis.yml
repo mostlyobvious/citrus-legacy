@@ -1,5 +1,5 @@
 language: ruby
-script: bundle exec rake prepare test
+script: git submodule init; git submodule update; bundle exec rake test
 rvm:
   - 1.9.2
   - 1.9.3
