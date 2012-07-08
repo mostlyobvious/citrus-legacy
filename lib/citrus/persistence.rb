@@ -16,6 +16,10 @@ module Citrus
         @store[key]
       end
 
+      def exists?(key)
+        @store.has_key?(key)
+      end
+
       def count
         @store.keys.size
       end
@@ -27,6 +31,10 @@ module Citrus
 
     def initialize
       @collections = Hash.new
+    end
+
+    def clear
+      @collections.clear
     end
 
     def [](arg)
