@@ -9,15 +9,17 @@ module Citrus
     end
 
     def to_html
+      projects = db[Project].all
     """
     <ul>
-      #{Project.all.map { |p| "<li>#{p.name}</li>" }}
+      #{projects.map { |p| "<li>#{p.name}</li>" }}
     </ul>
     """
     end
 
     def to_json
-      Project.all.to_json
+      projects = db[Project].all
+      projects.to_json
     end
   end
 end

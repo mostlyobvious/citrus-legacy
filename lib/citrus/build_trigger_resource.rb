@@ -1,24 +1,18 @@
-require 'citrus'
 require 'citrus/metadata'
 require 'citrus/build_trigger'
+require 'citrus/callback_resource'
 
 module Citrus
-  class BuildTriggerResource < Webmachine::Resource
-    def allowed_methods
-      %w(POST)
-    end
-
+  class BuildTriggerResource < CallbackResource
     def resource_exists?
-      token = request.path_info[:token]
-      if trigger = BuildTrigger.first(token: token)
-        @project = trigger.project
-      end
-      !!@project
+      db[BuildTrigger].exists?(request.path_info[:token])
     end
 
     def process_post
+      project  = db[BuildTrigger].find(request.path_info[:token]).project
       metadata = Metadata.parse_from_hook(request.body)
-      build    = @project.create_build(metadata)
+      build    = Build.new(metadata)
+      project.add_build(build)
       build.run
       true
     end

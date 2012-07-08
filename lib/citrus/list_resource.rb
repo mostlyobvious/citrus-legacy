@@ -3,6 +3,10 @@ require 'webmachine/resource'
 
 module Citrus
   class ListResource < Webmachine::Resource
+    def db
+      Citrus.db
+    end
+
     def allowed_methods
       %w(GET HEAD)
     end

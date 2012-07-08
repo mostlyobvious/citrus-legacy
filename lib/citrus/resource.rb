@@ -3,6 +3,10 @@ require 'citrus'
 
 module Citrus
   class Resource < Webmachine::Resource
+    def db
+      Citrus.db
+    end
+
     def content_types_provided
       [['application/json', :to_json]]
     end

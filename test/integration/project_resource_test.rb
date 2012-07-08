@@ -6,19 +6,17 @@ class ProjectResourceTest < IntegrationTestCase
       body: valid_params.to_json,
       headers: valid_headers
     assert_equal 201, response.code
-    assert_equal '/projects/1', response.headers['Location']
+    assert_equal '/projects/citrus-app', response.headers['Location']
   end
 
   def valid_headers
-    {
-      'Content-Type' => 'application/json'
-    }
+    {'Content-Type' => 'application/json'}
   end
 
   def valid_params
     {
-      name: 'citrus',
-      repository: 'git://github.com/pawelpacana/citrus'
+      name: 'citrus app',
+      repository_url: 'git://github.com/pawelpacana/citrus'
     }
   end
 end

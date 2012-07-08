@@ -2,6 +2,8 @@ require 'citrus'
 require 'citrus/project'
 require 'citrus/resource'
 
+require 'json'
+
 module Citrus
   class ProjectResource < Resource
     def content_types_provided
@@ -9,26 +11,30 @@ module Citrus
     end
 
     def resource_exists?
-      @project = Project.get(request.path_info[:id])
-      !!@project
+      db[Project].exists?(request.path_info[:id])
     end
 
     def accept_json
       params  = JSON.parse(request.body.to_s)
-      project = Project.new(params['name'], params['repository'])
-      project.save
+      project = Project.new(
+        params['name'],
+        params['repository_url']
+      )
+      db[Project].save(project.name, project)
       response.headers['Location'] = "/projects/#{project.id}"
     end
 
     def to_json
-      @project.to_json
+      project = db[Project].find(request.path_info[:id])
+      project.to_json
     end
 
     def to_html
+      project = db[Project].find(request.path_info[:id])
       """
-      <h1>#{@project.name}</h1>
+      <h1>#{project.name}</h1>
 
-      Has repository at: #{@project.source_repository}
+      Has repository at: #{project.repository_url}
       """
     end
   end
