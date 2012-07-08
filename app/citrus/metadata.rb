@@ -2,10 +2,7 @@ require 'citrus/entity'
 
 module Citrus
   class Metadata < Entity
-    attribute :revision, String
-    attribute :pusher_name, String
-    attribute :ref, String
-
+    attr_accessor         :revision, :pusher_name, :ref
     validates_presence_of :revision, :pusher_name, :ref
 
     def self.parse_from_hook(data)

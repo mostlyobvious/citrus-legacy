@@ -2,9 +2,8 @@ require 'citrus/entity'
 
 module Citrus
   class BuildTrigger < Entity
-    attr_accessor :project
-    attribute     :token, String
-
+    attr_reader           :token
+    attr_accessor         :project
     validates_presence_of :token, :project
 
     def initialize
@@ -12,7 +11,7 @@ module Citrus
     end
 
     def generate_token!
-      self.token = SecureRandom.hex
+      @token = SecureRandom.hex
     end
   end
 end

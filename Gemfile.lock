@@ -16,7 +16,6 @@ GEM
       i18n (~> 0.6)
       multi_json (~> 1.0)
     addressable (2.2.8)
-    backports (2.6.1)
     builder (3.0.0)
     capybara (1.1.2)
       mime-types (>= 1.16)
@@ -74,8 +73,6 @@ GEM
       multi_json (~> 1.0)
       rubyzip
     thor (0.15.4)
-    virtus (0.5.1)
-      backports (~> 2.6.1)
     webmachine (1.0.0)
       i18n (>= 0.4.0)
       multi_json
@@ -100,6 +97,5 @@ DEPENDENCIES
   mocha
   rake
   rb-fsevent
-  virtus (~> 0.5.1)
   webmachine (~> 1.0.0)
   webmachine-test (~> 0.1.0)

@@ -1,7 +1,6 @@
 source 'https://rubygems.org'
 
 gem 'webmachine',  '~> 1.0.0'
-gem 'virtus',      '~> 0.5.1'
 gem 'activemodel', '~> 3.2.6', require: 'active_model'
 gem 'cocaine'
 gem 'httpclient'

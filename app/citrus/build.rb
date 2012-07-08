@@ -9,25 +9,19 @@ module Citrus
   class Build < Entity
     extend  Forwardable
     def_delegator :project, :name, :project_name
-    attr_accessor :project
 
-    attribute :id,            String
-    attribute :metadata,      Citrus::Metadata
-    attribute :result,        Citrus::Result
-    attribute :configuration, Citrus::BuildConfiguration
-
-    validates_presence_of :project, :metadata, :result, :id
+    attr_accessor         :id, :project, :metadata, :result
+    validates_presence_of :id, :project, :metadata, :result
 
     def initialize(metadata)
-      self.metadata = metadata
-      self.result   = Result.new(:not_started)
-      self.id = SecureRandom.hex(4)
+      @metadata = metadata
+      @result   = Result.new(:not_started)
+      @id = SecureRandom.hex(4)
     end
 
     def run
       prepare_workspace
       checkout_source
-      load_configuration
       execute_build_script
     end
 
@@ -51,14 +45,13 @@ module Citrus
 
     def load_configuration
       config_path = File.join(dirname, '.citrus/config.rb')
-      self.configuration = BuildConfiguration.load_from_file(config_path)
+      BuildConfiguration.load_from_file(config_path)
     end
 
     def execute_build_script
-      exec   = BuildExecutor.new(self.configuration.build_script)
-      result = exec.run
-      self.result = result
-      result
+      config  = load_configuration
+      exec    = BuildExecutor.new(config.build_script)
+      @result = exec.run
     end
   end
 end

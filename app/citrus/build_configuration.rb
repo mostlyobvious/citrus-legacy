@@ -2,8 +2,7 @@ require 'citrus/entity'
 
 module Citrus
   class BuildConfiguration < Entity
-    attr_reader :build_script
-
+    attr_reader           :build_script
     validates_presence_of :build_script
 
     def self.describe(&block)
