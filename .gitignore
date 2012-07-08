@@ -3,6 +3,7 @@
 .bundle
 .config
 .yardoc
+.todo
 InstalledFiles
 _yardoc
 coverage
