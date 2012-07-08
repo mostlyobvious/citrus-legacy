@@ -24,6 +24,13 @@ module Citrus
       ENV['CITRUS_ENV'] ||= 'development'
     end
 
+    def db
+      @db ||= begin
+                require 'citrus/persistence'
+                Citrus::Persistence.new
+              end
+    end
+
     protected
     def require_bundler_default_group
       require 'bundler'
