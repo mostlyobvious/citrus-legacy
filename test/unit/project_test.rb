@@ -38,4 +38,8 @@ class ProjectTest < UnitTestCase
     @project.repository_url = nil
     refute @project.valid?
   end
+
+  def test_should_have_whitespace_friendly_id
+    assert_equal 'awesome-project', @project.id
+  end
 end

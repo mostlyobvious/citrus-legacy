@@ -1,6 +1,7 @@
 require 'citrus/entity'
 require 'citrus/build'
 require 'citrus/build_trigger'
+require 'stringex'
 
 module Citrus
   class Project < Entity
@@ -10,6 +11,10 @@ module Citrus
 
     def initialize(name, repository_url)
       @name, @repository_url = name, repository_url
+    end
+
+    def id
+      name.to_url
     end
 
     def add_build(build)

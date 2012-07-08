@@ -4,6 +4,7 @@ gem 'webmachine',  '~> 1.0.0'
 gem 'activemodel', '~> 3.2.6', require: 'active_model'
 gem 'cocaine'
 gem 'httpclient'
+gem 'stringex'
 
 group :test do
   gem 'bbq', git: 'git://github.com/drugpl/bbq.git'
